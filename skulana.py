@@ -4,14 +4,15 @@ import yaml
 import skulana_serum
 
 
-def run_command(command):
 
-    if command == "SERUM":
+def run_command(command: str, stdscr) -> bool:
+
+    if command == "SERUM": #  Enter serum app
         skulana_serum.serum(stdscr)
         return True
     return False
 
-def skulana(stdscr):
+def skulana(stdscr) -> None:
 
     # setup colors
     curses.start_color()
@@ -64,7 +65,13 @@ def skulana(stdscr):
 
             # Run command
             command = apps[current_row]
-            running = run_command(command)
+            running = run_command(command, stdscr)
+
+        # Case: quick escape using 'q'
+        elif key != -1: # Catch a returning empty from an exiting app
+            if chr(key) == "q":
+                stdscr.clear()
+                running = run_command("EXIT", stdscr)
 
     return
 

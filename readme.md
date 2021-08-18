@@ -5,3 +5,5 @@ python3.9 ??? not really
 curses
 
 yaml
+
+requests
